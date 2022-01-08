@@ -21,7 +21,8 @@ class PuzzlePage extends StatelessWidget {
     return BlocProvider(
       create: (context) => ThemeBloc(
         themes: const [
-          SimpleTheme(),
+          // SimpleTheme(),
+          CustomTheme(),
         ],
       ),
       child: const PuzzleView(),
@@ -49,13 +50,20 @@ class PuzzleView extends StatelessWidget {
         create: (context) => TimerBloc(
           ticker: const Ticker(),
         ),
-        child: BlocProvider(
-          create: (context) => PuzzleBloc(4)
-            ..add(
-              PuzzleInitialized(
-                shufflePuzzle: shufflePuzzle,
-              ),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => PuzzleBloc(4)
+                ..add(
+                  PuzzleInitialized(
+                    shufflePuzzle: shufflePuzzle,
+                  ),
+                ),
             ),
+            BlocProvider(
+              create: (context) => AnimationCubit(),
+            ),
+          ],
           child: const _Puzzle(
             key: Key('puzzle_view_puzzle'),
           ),

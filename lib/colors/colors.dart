@@ -52,4 +52,7 @@ abstract class PuzzleColors {
 
   /// White
   static const Color white = Color(0xFFFFFFFF);
+
+  ///Red
+  static const Color red = Color(0xFFFF0000);
 }
